@@ -34,7 +34,7 @@ jobs:
         run: npm install -g netlify-cli
 
       - name: Deploy to Netlify
-        run: netlify deploy --dir=.next --site=$NETLIFY_SITE_ID --auth=$nfp_8wncowotrAtsZ4Qx3TABuVe1aMJJsLDw0456 --prod
+        run: netlify deploy --dir=.next --site=$24c583a2-6270-4621-a559-7e07b72efea2 --auth=$nfp_8wncowotrAtsZ4Qx3TABuVe1aMJJsLDw0456 --prod
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
