@@ -37,4 +37,4 @@ jobs:
         run: netlify deploy --dir=.next --site=$NETLIFY_SITE_ID --auth=$NETLIFY_AUTH_TOKEN --prod
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.nfp_nwfcNKMWkL1NYt49Mvq59xWFbyrqwtvR639e }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_SITE_ID: ${{ 2d27b742-f632-42de-ae29-c65f59cf3498 }}
