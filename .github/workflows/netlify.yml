@@ -1,0 +1,40 @@
+name: Next.js CI/CD to Netlify
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout repo
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm Install
+      
+      - name: Run Linter
+        run: npm run lint
+
+      - name: Build Next.js
+        run:  npm run build
+
+      - name: Install Netlify CLI
+        run: npm install -g netlify-cli
+
+      - name: Deploy to Netlify
+        run: netlify deploy --dir=.next --site=$NETLIFY_SITE_ID --auth=$NETLIFY_AUTH_TOKEN --prod
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.nfp_nwfcNKMWkL1NYt49Mvq59xWFbyrqwtvR639e }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
