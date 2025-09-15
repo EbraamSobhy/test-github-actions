@@ -34,7 +34,11 @@ jobs:
         run: npm install -g netlify-cli
 
       - name: Deploy to Netlify
-        run: netlify deploy --dir=.next --site=24c583a2-6270-4621-a559-7e07b72efea2 --auth=nfp_8wncowotrAtsZ4Qx3TABuVe1aMJJsLDw0456 --prod
+        uses: nwtgck/actions-netlify@v2
+        with:
+          production-deploy: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Deploy from GitHub Actions"
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
