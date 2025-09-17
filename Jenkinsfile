@@ -1,19 +1,46 @@
 pipeline {
     agent any
+
+    environment {
+        NODE_VERSION = "18"
+        NETLIFY_AUTH_TOKEN = credentials('NETLIFY_AUTH_TOKEN')
+        NETLIFY_SITE_ID = credentials('NETLIFY_SITE_ID')
+    }
+
     stages {
-        stage('Build') {
+        stage('Checkout') {
             steps {
-                echo 'Building...'
+                git branch: 'main', url: 'https://github.com/EbraamSobhy/test-github-actions.git'
             }
         }
-        stage('Test') {
+
+        stage('Install Dependencies') {
             steps {
-                echo 'Testing...'
+                sh 'npm install'
             }
         }
-        stage('Deploy') {
+
+        stage('Build Next.js') {
             steps {
-                echo 'Deploying...'
+                sh 'npm run build'
+            }
+        }
+
+        stage('Export (Static)') {
+            steps {
+                sh 'npm run export'
+            }
+        }
+
+        stage('Deploy to Netlify') {
+            steps {
+                sh '''
+                npx netlify deploy \
+                  --dir=out \
+                  --site=$NETLIFY_SITE_ID \
+                  --auth=$NETLIFY_AUTH_TOKEN \
+                  --prod
+                '''
             }
         }
     }
